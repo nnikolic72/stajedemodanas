@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 
     # my apps
     'stajedemodanas',
+    'deliverers',
+    'receivers',
+    'workplaces',
 ]
 
 MIDDLEWARE = [
