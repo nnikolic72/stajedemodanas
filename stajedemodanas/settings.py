@@ -10,12 +10,18 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import configparser
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+config = configparser.ConfigParser()
+config.read('stajedemodanas.ini')
 
+RABBIT_SERVER = config['RABBIT']['rabbitServer']
+RABBIT_PORT = config['RABBIT']['rabbitPort']
+RABBIT_USER = config['RABBIT']['rabbitUser']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -41,6 +47,9 @@ INSTALLED_APPS = [
     # my stuff
     'bootstrap4',
     'django_countries',
+    'crispy_forms',
+    'django_celery_results',
+    'django_celery_beat',
 
     # my apps
     'stajedemodanas',
@@ -135,3 +144,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/accounts/login/'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_FAIL_SILENTLY = not DEBUG
+
+CELERY_RESULT_BACKEND = 'django-db'
+BROKER_CONNECTION_TIMEOUT = 10

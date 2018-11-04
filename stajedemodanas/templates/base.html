@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+{% load bootstrap4 %}
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% bootstrap_javascript jquery='full' %}
+
+    {% bootstrap_css %}
+</head>
+<body>
+    <div class="container">
+        {% block bootstrap4_content %}
+        {% endblock %}
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+    </div>
+</body>
+</html>
