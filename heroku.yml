@@ -2,4 +2,4 @@ build:
   docker:
     stajedemodanas_web: Dockerfile
 run:
-  stajedemodanas_web: docker-compose up -f src/docker-compose.yml
+  stajedemodanas_web: docker-compose -f src/docker-compose.yml up
