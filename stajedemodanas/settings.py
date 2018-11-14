@@ -35,7 +35,7 @@ SECRET_KEY = 'wbr&!ak@l+hk*))c4ivxl7hy=u7h3o+((#luvq0+p%=h5#mv#u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['web', '127.0.0.1', '0.0.0.0', 'localhost', '192.168.99.100', 'stajedemodanas_web', '172.22.0.6']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
