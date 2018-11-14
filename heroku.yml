@@ -1,4 +1,5 @@
-setup:
-  config: {}
 build:
-  languages: []
+  docker:
+    stajedemodanas_web: Dockerfile
+run:
+  stajedemodanas_web: bundle exec puma -C config/puma.rb
