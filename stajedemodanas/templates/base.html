@@ -2,6 +2,7 @@
 <html lang="en">
 {% load bootstrap4 %}
 {% load static %}
+{% load i18n %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +13,29 @@
 <body>
     <div class="container">
         {% block bootstrap4_content %}
+            <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                      <a class="navbar-brand" href="{% url 'home-page' %}">{% trans "Šta Jedemo Danas" %}</a>
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDictionaries" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              {% trans "Naruči" %}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownDictionaries">
+                              <a class="dropdown-item" href="{% url 'deliverers:list-deliverers' %}">{% trans "Lista restorana" %}</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="">{% trans "Moja grupa" %}</a>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                </div>
+                </nav>
         {% endblock %}
         {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
     </div>

@@ -19,6 +19,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config = configparser.ConfigParser()
 config.read('stajedemodanas.ini')
 
+MONGO_SERVER = config['MONGODB']['mongoServer']
+MONGO_DATABASE_NAME = config['MONGODB']['mongoDatabaseName']
+MONGO_DATABASE_PORT = config['MONGODB']['mongoDatabasePort']
 RABBIT_SERVER = config['RABBIT']['rabbitServer']
 RABBIT_PORT = config['RABBIT']['rabbitPort']
 RABBIT_USER = config['RABBIT']['rabbitUser']
@@ -31,7 +34,7 @@ SECRET_KEY = 'wbr&!ak@l+hk*))c4ivxl7hy=u7h3o+((#luvq0+p%=h5#mv#u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web', '127.0.0.1', '0.0.0.0', 'localhost', '192.168.99.100', 'stajedemodanas_web', '172.22.0.6']
 
 
 # Application definition
@@ -91,9 +94,12 @@ WSGI_APPLICATION = 'stajedemodanas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'stajedemodanas',
+        'NAME': f'{MONGO_DATABASE_NAME}',
+        'HOST': f'{MONGO_SERVER}',
+        'PORT': int(MONGO_DATABASE_PORT),
     }
 }
+
 
 # Mogodb on Heroku
 # DATABASES = {
@@ -144,8 +150,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = []
 
 LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CRISPY_FAIL_SILENTLY = not DEBUG
 

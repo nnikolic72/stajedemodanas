@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}Login{% endblock %}
 
 {% block bootstrap4_content %}
     {{ block.super }}
-    Login
+    <h1>Please login</h1>
+    <div class="table">
+        <div class="row">
+            <div class="sm-3">
+                <form method="post" action="{{ app_path }}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

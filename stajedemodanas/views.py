@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View
 
 
-class BaseView(View):
+class BaseView(View, LoginRequiredMixin):
     def __init__(self, *args, **kwargs):
         super(BaseView, self).__init__(*args, **kwargs)
         self.context = dict()
@@ -12,6 +12,6 @@ class BaseView(View):
         return super(BaseView, self).dispatch(request, *args, **kwargs)
 
 
-class HomePageView(LoginRequiredMixin, BaseView):
+class HomePageView(BaseView):
     def get(self, request):
         return render(request, 'home.html')
