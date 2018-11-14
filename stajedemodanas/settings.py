@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import configparser
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -160,3 +161,7 @@ CRISPY_FAIL_SILENTLY = not DEBUG
 
 CELERY_RESULT_BACKEND = 'django-db'
 BROKER_CONNECTION_TIMEOUT = 10
+
+
+# END --------------------------
+django_heroku.settings(locals())
