@@ -2,4 +2,4 @@ build:
   docker:
     stajedemodanas_web: Dockerfile
 run:
-  stajedemodanas_web: bundle exec puma -C config/puma.rb
+  stajedemodanas_web: docker-compose up
