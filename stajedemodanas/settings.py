@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'stajedemodanas.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': f'{MONGO_DATABASE_NAME}',
         'HOST': f'{MONGO_SERVER}',
         'PORT': int(MONGO_DATABASE_PORT),
