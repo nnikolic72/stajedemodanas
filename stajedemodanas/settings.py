@@ -28,7 +28,8 @@ MONGO_DATABASE_USERPASS = config['MONGODB']['mongoDatabaseUserpass']
 RABBIT_SERVER = config['RABBIT']['rabbitServer']
 RABBIT_PORT = config['RABBIT']['rabbitPort']
 RABBIT_USER = config['RABBIT']['rabbitUser']
-RABBIT_GB = config['RABBIT']['rabbitDB']
+RABBIT_PASS = config['RABBIT']['rabbitPass']
+RABBIT_DB = config['RABBIT']['rabbitDB']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 

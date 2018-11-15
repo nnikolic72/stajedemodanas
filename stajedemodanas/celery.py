@@ -6,7 +6,8 @@ from django.conf import settings
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stajedemodanas.settings')
 
-celery = Celery('snavip', broker=f'amqp://{settings.RABBIT_USER}@{settings.RABBIT_SERVER}//{settings.RABBIT_DB}')
+celery = Celery('stajedemodanas',
+                broker=f'amqp:/{settings.RABBIT_USER}:{settings.RABBIT_PASS}@{settings.RABBIT_SERVER}/{settings.RABBIT_DB}')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
