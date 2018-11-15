@@ -6,3 +6,7 @@ RUN pip install -r /config/requirements.txt
 RUN mkdir /src;
 EXPOSE 8000
 WORKDIR /src
+COPY . /src/
+# Run the app.  CMD is required to run on Heroku
+# $PORT is set by Heroku
+CMD celery -A stajedemodanas flower --port=5556

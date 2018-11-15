@@ -53,4 +53,4 @@ services:
 
 networks:
   stajedemodanas_default:
-     external: true
+     external: false

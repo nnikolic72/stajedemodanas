@@ -1,5 +1,5 @@
 build:
   docker:
-    stajedemodanas_web: Dockerfile
-run:
-  stajedemodanas_web: docker-compose up
+    stajedemodanas_web: Dockerfile.web
+    stajedemodanas_celery: Dockerfile.celery
+    stajedemodanas_worker: Dockerfile.worker
