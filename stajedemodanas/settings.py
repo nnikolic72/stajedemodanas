@@ -23,9 +23,12 @@ config.read('stajedemodanas.ini')
 MONGO_SERVER = config['MONGODB']['mongoServer']
 MONGO_DATABASE_NAME = config['MONGODB']['mongoDatabaseName']
 MONGO_DATABASE_PORT = config['MONGODB']['mongoDatabasePort']
+MONGO_DATABASE_USERNAME = config['MONGODB']['mongoDatabaseUsername']
+MONGO_DATABASE_USERPASS = config['MONGODB']['mongoDatabaseUserpass']
 RABBIT_SERVER = config['RABBIT']['rabbitServer']
 RABBIT_PORT = config['RABBIT']['rabbitPort']
 RABBIT_USER = config['RABBIT']['rabbitUser']
+RABBIT_GB = config['RABBIT']['rabbitDB']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -98,6 +101,8 @@ DATABASES = {
         'NAME': f'{MONGO_DATABASE_NAME}',
         'HOST': f'{MONGO_SERVER}',
         'PORT': int(MONGO_DATABASE_PORT),
+        'USER': f'{MONGO_DATABASE_USERNAME}',
+        'PASSWORD': f'{MONGO_DATABASE_USERPASS}',
     }
 }
 
