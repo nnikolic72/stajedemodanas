@@ -17,6 +17,10 @@ services:
   stajedemodanas_web:
     build: .
     container_name: stajedemodanas_web01
+    restart: on-failure
+    env_file:
+      - ./.env
+      - ./.env.secret
     command: bash -c "python manage.py makemigrations && python manage.py collectstatic --no-input && python manage.py migrate && gunicorn stajedemodanas.wsgi -b 0.0.0.0:8000 --timeout 300"
     depends_on:
       - stajedemodanas_db
@@ -29,15 +33,14 @@ services:
       - stajedemodanas_default
       - default
   stajedemodanas_db:
-    image: mongo:latest
-    container_name: stajedemodanas_mongo01
-  stajedemodanas_celery:
-    build: .
-    command: celery --app=stajedemodanas worker --loglevel=info
+    image: "postgres:10.3-alpine"
+    restart: always
+    env_file:
+    - ./.env.secret
+    ports:
+    - "5432:5432"
     volumes:
-      - .:/src
-    depends_on:
-      - stajedemodanas_db
+    - ./postgres/data:/var/lib/postgresql/data
   stajedemodanas_celery-flower:
     build: .
     command: celery -A stajedemodanas flower --port=5556

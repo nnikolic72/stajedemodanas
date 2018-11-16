@@ -1,7 +1,0 @@
-build:
-  docker:
-    web: Dockerfile.web
-    celery: Dockerfile.celery
-    worker: Dockerfile.worker
-run:
-  web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:8000 --timeout 300

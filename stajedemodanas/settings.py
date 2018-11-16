@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config = configparser.ConfigParser()
 config.read('stajedemodanas.ini')
 
-MONGO_SERVER = config['MONGODB']['mongoServer']
-MONGO_DATABASE_NAME = config['MONGODB']['mongoDatabaseName']
-MONGO_DATABASE_PORT = config['MONGODB']['mongoDatabasePort']
-MONGO_DATABASE_USERNAME = config['MONGODB']['mongoDatabaseUsername']
-MONGO_DATABASE_USERPASS = config['MONGODB']['mongoDatabaseUserpass']
+# POSTGRES_SERVER = config['POSTGRESDB']['postgresServer']
+# POSTGRES_DATABASE_NAME = config['POSTGRESDB']['postgresDatabaseName']
+# POSTGRES_DATABASE_PORT = config['POSTGRESDB']['postgresDatabasePort']
+# POSTGRES_DATABASE_USERNAME = config['POSTGRESDB']['postgresDatabaseUsername']
+# POSTGRES_DATABASE_USERPASS = config['POSTGRESDB']['postgresDatabaseUserpass']
 RABBIT_SERVER = config['RABBIT']['rabbitServer']
 RABBIT_PORT = config['RABBIT']['rabbitPort']
 RABBIT_USER = config['RABBIT']['rabbitUser']
@@ -34,12 +34,12 @@ RABBIT_DB = config['RABBIT']['rabbitDB']
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wbr&!ak@l+hk*))c4ivxl7hy=u7h3o+((#luvq0+p%=h5#mv#u'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.getenv('DEBUG', False)))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 
 # Application definition
@@ -99,11 +99,11 @@ WSGI_APPLICATION = 'stajedemodanas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': f'{MONGO_DATABASE_NAME}',
-        'HOST': f'{MONGO_SERVER}',
-        'PORT': int(MONGO_DATABASE_PORT),
-        'USER': f'{MONGO_DATABASE_USERNAME}',
-        'PASSWORD': f'{MONGO_DATABASE_USERPASS}',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
     }
 }
 
