@@ -8,7 +8,7 @@ setup:
       as: DATABASE
   config:
     PORT: '8000'
-	release:
+release:
   command:
     - ./manage.py makemigrations
     - ./manage.py collectstatic --no-input
