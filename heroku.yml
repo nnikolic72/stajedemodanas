@@ -11,4 +11,4 @@ setup:
 build:
   languages: []
 run:
-  stajedemodanas_web: docker-compose up
+  stajedemodanas_web: cd www && docker-compose up
