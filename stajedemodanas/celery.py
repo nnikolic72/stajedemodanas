@@ -7,7 +7,8 @@ from django.conf import settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stajedemodanas.settings')
 
 celery = Celery('stajedemodanas',
-                broker=f'amqp://{settings.RABBIT_USER}:{settings.RABBIT_PASS}@{settings.RABBIT_SERVER}')
+                broker=f'amqp://{settings.RABBIT_USER}:{settings.RABBIT_PASS}'
+                       f'@{settings.RABBIT_SERVER}/{settings.RABBIT_DB}')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
