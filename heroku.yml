@@ -8,17 +8,11 @@ setup:
       as: DATABASE
   config:
     PORT: '8000'
-release:
-  command:
-    - ./manage.py makemigrations
-    - ./manage.py collectstatic --no-input
-    - ./manage.py migrate
-  image: stajedemodanas_web
 build:
   languages: []
 run:
-  stajedemodanas_web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:8000 --timeout 300
+  stajedemodanas_web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
     command:
-      - celery -A stajedemodanas 0l info worker
+      - celery -A stajedemodanas -l info worker
     image: stajedemodanas_web
