@@ -1,0 +1,12 @@
+setup:
+  addons:
+    - plan: 'cloudamqp:lemur'
+      as: CLOUDAMQP
+    - plan: 'papertrail:choklad'
+      as: PAPERTRAIL
+    - plan: 'heroku-postgresql:hobby-dev'
+      as: DATABASE
+  config:
+    PORT: '8000'
+build:
+  languages: []
