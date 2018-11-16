@@ -20,7 +20,7 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:8000 --timeout 300
+  web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
     command:
       - celery -A stajedemodanas -l info worker
