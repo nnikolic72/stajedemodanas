@@ -10,5 +10,5 @@ setup:
     PORT: '8000'
 build:
   languages: []
-run:
-  stajedemodanas_web: cd www && docker-compose up
+#run:
+#  stajedemodanas_web: cd www && docker-compose up
