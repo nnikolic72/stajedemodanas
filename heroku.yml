@@ -13,7 +13,7 @@ release:
     - ./manage.py makemigrations
     - ./manage.py collectstatic --no-input
     - ./manage.py migrate
-  image: web
+  image: stajedemodanas_web
 build:
   languages: []
 run:
