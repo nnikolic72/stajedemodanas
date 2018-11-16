@@ -18,7 +18,8 @@ setup:
     ALLOWED_HOSTS: '*'
 build:
   languages: []
-  web: Dockerfile
+  docker:
+    web: Dockerfile
 run:
   web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:8000 --timeout 300
   worker:
