@@ -24,4 +24,4 @@ run:
   worker:
     command:
       - celery -A stajedemodanas -l info worker
-    image: stajedemodanas_web
+    image: web
