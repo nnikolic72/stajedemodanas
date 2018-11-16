@@ -17,7 +17,6 @@ setup:
     DEBUG: '1'
     ALLOWED_HOSTS: '*'
 build:
-  languages: []
   docker:
     web: Dockerfile
 run:
