@@ -19,6 +19,6 @@ build:
 run:
   stajedemodanas_web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:8000 --timeout 300
   worker:
-      command:
-        - celery -A stajedemodanas 0l info worker
-      image: stajedemodanas_web
+    command:
+      - celery -A stajedemodanas 0l info worker
+    image: stajedemodanas_web
