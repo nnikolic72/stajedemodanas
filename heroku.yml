@@ -19,9 +19,16 @@ setup:
 build:
   docker:
     web: Dockerfile
+release:
+  image: web
+  command: ./release-tasks.sh
 run:
   web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
     command:
       - celery -A stajedemodanas -l info worker
+    image: web
+  flower:
+    command:
+      - celery -A stajedemodanas flower
     image: web
