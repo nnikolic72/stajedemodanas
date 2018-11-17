@@ -23,7 +23,8 @@ release:
   image: web
   command:
     - echo "Statring release"
-    -  manage.py collectstatic --no-input
+    - ./manage.py collectstatic --no-input
+    - ./manage.py migrate
 run:
   web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
