@@ -22,7 +22,8 @@ build:
 release:
   image: web
   command:
-    -  ./www/manage.py collectstatic --no-input
+    - echo "Statring release"
+    -  manage.py collectstatic --no-input
 run:
   web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
