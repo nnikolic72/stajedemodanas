@@ -11,7 +11,7 @@
 # $PORT is set by Heroku
 #CMD python manage.py makemigrations && python manage.py collectstatic --no-input && python manage.py migrate
 
-FROM heroku/heroku:16
+FROM alpine
 # init
 RUN mkdir /www
 WORKDIR /www
