@@ -13,6 +13,7 @@
 
 FROM alpine
 # init
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN mkdir /www
 WORKDIR /www
 COPY requirements.txt /www/
@@ -25,8 +26,9 @@ RUN apk --no-cache add \
     postgresql-client \
     postgresql-dev \
     build-base \
-    gettext
-RUN bash -c rm /bin/sh && bash -c ln -s /bin/bash /bin/sh
+    gettext \
+    curl \
+    openssh
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 # clean
