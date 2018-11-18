@@ -13,13 +13,14 @@
 
 FROM alpine
 # init
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN mkdir /www
 WORKDIR /www
 COPY requirements.txt /www/
 # setup
-RUN apk update
-RUN apk upgrade
 RUN apk --no-cache add \
     python3 \
     python3-dev \
