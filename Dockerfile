@@ -16,7 +16,9 @@ FROM alpine
 RUN apk update
 RUN apk upgrade
 RUN apk add bash
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+ADD sh-wrapper.sh /bin/sh-wrapper.sh
+RUN chmod a+x /bin/sh-wrapper.sh
+RUN rm /bin/sh && ln -s /bin/sh-wrapper.sh /bin/sh
 RUN mkdir /www
 WORKDIR /www
 COPY requirements.txt /www/
