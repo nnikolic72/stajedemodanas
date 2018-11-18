@@ -26,7 +26,7 @@ RUN apk --no-cache add \
     postgresql-dev \
     build-base \
     gettext
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN ln -s /bin/bash /bin/sh
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 # clean
