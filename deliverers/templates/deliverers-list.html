@@ -10,10 +10,44 @@
   <h1>{% trans "Restorani" %}</h1>
 
     <div class="table">
-        {% for deliverer in deliverers %}
+        {% for key, deliverer in deliverers.items %}
             <div class="row">
-                <div class="col col-sm-6">
-                    {{ deliverer.deliverer_name }}
+                <div class="col col-sm-12">
+                    <h3>{{ deliverer.deliverer.deliverer_name }}<small> tel: {{ deliverer.deliverer.deliverer_phone }}</small></h3>
+
+                    <div class="table">
+                    {% for item in deliverer.delivereritems %}
+                        <div class="row">
+                            <div class="'col col-sm-4">
+                                {{ item.item_name }}
+                            </div>
+                            <div class="'col col-sm-4">
+                                {{ item.item_price }}
+                            </div>
+                            <div class="'col col-sm-4">
+                                <a class="button" href="#">{% trans 'Naruči' %}</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <small>{{ item.item_description }}</small>
+                            </div>
+                        </div>
+                    {% endfor %}
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="text" id="{{ deliverer.id }}-new-item" placeholder="{{ deliverer.deliverer.deliverer_name }}: {% trans 'Nova stavka' %}">
+                            </div>
+                            <div class="'col col-sm-4">
+                                <input type="text" id="{{ deliverer.id }}-new-item-price" placeholder="{% trans 'Cena' %}">
+                                {{ item.item_price }}
+                            </div>
+                            <div class="'col col-sm-4">
+                                <a class="button" href="#" id="{{ deliverer.id }}-new-item-order">{% trans 'Naruči' %}</a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         {% endfor %}

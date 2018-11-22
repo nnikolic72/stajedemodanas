@@ -34,10 +34,10 @@ RABBIT_DB = config['RABBIT']['rabbitDB']
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY') or config['CONFIG']['secretkey']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.getenv('DEBUG', False)))
+DEBUG = bool(int(os.getenv('DEBUG', False))) or True
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
@@ -99,26 +99,13 @@ WSGI_APPLICATION = 'stajedemodanas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'HOST': os.getenv('POSTGRES_HOST'),
-        'PORT': os.getenv('POSTGRES_PORT'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'NAME': os.getenv('POSTGRES_DB') or config['POSTGRESDB']['postgresDatabaseName'],
+        'HOST': os.getenv('POSTGRES_HOST') or config['POSTGRESDB']['postgresServer'],
+        'PORT': os.getenv('POSTGRES_PORT') or config['POSTGRESDB']['postgresDatabasePort'],
+        'USER': os.getenv('POSTGRES_USER') or config['POSTGRESDB']['postgresDatabaseUsername'],
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD') or config['POSTGRESDB']['postgresDatabaseUserpass'],
     }
 }
-
-
-# Mogodb on Heroku
-# DATABASES = {
-#   'default': {
-#     'ENGINE': 'django_mongodb_engine',
-#     'NAME': 'heroku_app1234567',
-#     'USER': 'heroku_app1234567',
-#     'PASSWORD': 'abcdefghijklmnopqrstuvwxyz',
-#     'HOST': 'ds031117.mongolab.com',
-#     'PORT': '31117',
-#   }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
