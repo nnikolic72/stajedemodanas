@@ -23,6 +23,9 @@ from stajedemodanas.views import HomePageView
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^deliverers/', include(('deliverers.urls', 'deliverers'), namespace='deliverers')),
+    url(r'^receivers/', include(('receivers.urls', 'receivers'), namespace='receivers')),
+    url(r'^workplaces/', include(('workplaces.urls', 'workplaces'), namespace='workplaces')),
+    url(r'^orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('accounts/login/', auth_views.LoginView.as_view()),
     path('accounts/logout/', auth_views.LogoutView.as_view()),
     path('', HomePageView.as_view(), name='home-page')

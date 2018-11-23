@@ -11,20 +11,36 @@ class Deliverer(Model):
     """
     Model for companies/people that deliver
     """
-    deliverer_name = CharField(max_length=100, blank=False, null=False)
-    deliverer_phone = CharField(max_length=20, blank=False, null=False)
+    name = CharField(max_length=100, blank=False, null=False)
+    phone = CharField(max_length=20, blank=False, null=False)
+
+    class Meta:
+        verbose_name = _('Deliverer')
+        verbose_name_plural = _('Deliverers')
+
+    def __repr__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
 
 
 class DeliveryItem(Model):
-    item_name = CharField(_('Item Name'), max_length=120, blank=False, null=False)
-    item_description = CharField(_('Item Description'), max_length=1024, blank=True, null=True)
-    item_price = DecimalField(_('Item Price'), max_digits=16, decimal_places=2, blank=False, null=False)
-    item_deliverer_code = CharField(_('Item Code'), max_length=100, blank=True, null=True)
+    name = CharField(_('Item Name'), max_length=120, blank=False, null=False)
+    description = CharField(_('Item Description'), max_length=1024, blank=True, null=True)
+    price = DecimalField(_('Item Price'), max_digits=16, decimal_places=2, blank=False, null=False)
+    deliverer_code = CharField(_('Item Code'), max_length=100, blank=True, null=True)
     deliverer = ForeignKey('Deliverer', on_delete=CASCADE, blank=False, null=False)
 
     class Meta:
         verbose_name = _('Delivery Item')
         verbose_name_plural = _('Delivery Items')
+
+    def __repr__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
 
 
 class Address(Model):
@@ -41,3 +57,8 @@ class Address(Model):
         verbose_name = _('Address')
         verbose_name_plural = _('Addresses')
 
+    def __repr__(self):
+        return f'{self.address1}, {self.city}'
+
+    def __str__(self):
+        return f'{self.address1}, {self.zip_code}, {self.city}, {self.country}'

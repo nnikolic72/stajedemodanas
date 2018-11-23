@@ -7,7 +7,7 @@ from deliverers.models import Deliverer
 class DelivererForm(forms.ModelForm):
     class Meta:
         model = Deliverer
-        fields = ('deliverer_name', 'deliverer_phone',)
+        fields = ('name', 'phone',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
