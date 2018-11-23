@@ -25,11 +25,11 @@ config.read('stajedemodanas.ini')
 # POSTGRES_DATABASE_PORT = config['POSTGRESDB']['postgresDatabasePort']
 # POSTGRES_DATABASE_USERNAME = config['POSTGRESDB']['postgresDatabaseUsername']
 # POSTGRES_DATABASE_USERPASS = config['POSTGRESDB']['postgresDatabaseUserpass']
-RABBIT_SERVER = config['RABBIT']['rabbitServer']
-RABBIT_PORT = config['RABBIT']['rabbitPort']
-RABBIT_USER = config['RABBIT']['rabbitUser']
-RABBIT_PASS = config['RABBIT']['rabbitPass']
-RABBIT_DB = config['RABBIT']['rabbitDB']
+RABBIT_SERVER = os.getenv('RABBIT_SERVER') or config['RABBIT']['rabbitServer']
+RABBIT_PORT = os.getenv('RABBIT_PORT') or config['RABBIT']['rabbitPort']
+RABBIT_USER = os.getenv('RABBIT_USER') or config['RABBIT']['rabbitUser']
+RABBIT_PASS = os.getenv('RABBIT_PASS') or config['RABBIT']['rabbitPass']
+RABBIT_DB = os.getenv('RABBIT_DB') or config['RABBIT']['rabbitDB']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
