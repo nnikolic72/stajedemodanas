@@ -40,4 +40,4 @@ RUN apk del -r python3-dev postgresql
 ENV PYTHONUNBUFFERED 1
 COPY . /www/
 ADD ./.profile.d /app/.profile.d
-# CMD python manage.py makemigrations && python manage.py collectstatic --no-input && python manage.py migrate
+python manage.py collectstatic --no-input && python manage.py migrate
