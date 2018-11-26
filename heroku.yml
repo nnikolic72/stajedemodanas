@@ -28,6 +28,7 @@ run:
   worker:
     command:
       - export DJANGO_CONFIGURATION=Prod && celery -A stajedemodanas -l info worker
+      - export DJANGO_CONFIGURATION=Prod && celery -A stajedemodanas flower
     image: web
   flower:
     command:
