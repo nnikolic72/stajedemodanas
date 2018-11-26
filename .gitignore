@@ -166,3 +166,5 @@ fabric.properties
 .idea/httpRequests
 
 .idea/
+
+stajedemodanas/settings.local.py

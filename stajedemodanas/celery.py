@@ -1,10 +1,14 @@
 import os
 from celery import Celery
+import configurations
 
 from django.conf import settings
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stajedemodanas.settings')
+os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
+
+configurations.setup()
 
 celery = Celery('stajedemodanas',
                 broker=f'amqp://{settings.RABBIT_USER}:{settings.RABBIT_PASS}'

@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import configparser
+from configurations import Configuration
 import os
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -96,16 +98,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stajedemodanas.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB') or config['POSTGRESDB']['postgresDatabaseName'],
-        'HOST': os.getenv('POSTGRES_HOST') or config['POSTGRESDB']['postgresServer'],
-        'PORT': os.getenv('POSTGRES_PORT') or config['POSTGRESDB']['postgresDatabasePort'],
-        'USER': os.getenv('POSTGRES_USER') or config['POSTGRESDB']['postgresDatabaseUsername'],
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD') or config['POSTGRESDB']['postgresDatabaseUserpass'],
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('POSTGRES_DB') or config['POSTGRESDB']['postgresDatabaseName'],
+#         'HOST': os.getenv('POSTGRES_HOST') or config['POSTGRESDB']['postgresServer'],
+#         'PORT': os.getenv('POSTGRES_PORT') or config['POSTGRESDB']['postgresDatabasePort'],
+#         'USER': os.getenv('POSTGRES_USER') or config['POSTGRESDB']['postgresDatabaseUsername'],
+#         'PASSWORD': os.getenv('POSTGRES_PASSWORD') or config['POSTGRESDB']['postgresDatabaseUserpass'],
+#     }
+# }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -157,4 +161,150 @@ BROKER_CONNECTION_TIMEOUT = 10
 
 
 # END --------------------------
-django_heroku.settings(locals())
+
+
+class Common(Configuration):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+
+        # my stuff
+        'bootstrap4',
+        'django_countries',
+        'crispy_forms',
+        'django_celery_results',
+        'django_celery_beat',
+
+        # my apps
+        'stajedemodanas',
+        'deliverers',
+        'receivers',
+        'workplaces',
+    ]
+
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
+
+    ROOT_URLCONF = 'stajedemodanas.urls'
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
+
+    WSGI_APPLICATION = 'stajedemodanas.wsgi.application'
+
+    # Password validation
+    # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
+
+
+    # Internationalization
+    # https://docs.djangoproject.com/en/2.1/topics/i18n/
+
+    LANGUAGE_CODE = 'en-us'
+
+    TIME_ZONE = 'UTC'
+
+    USE_I18N = True
+
+    USE_L10N = True
+
+    USE_TZ = True
+
+
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/2.1/howto/static-files/
+
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = []
+
+    LOGIN_URL = '/accounts/login/'
+    LOGIN_REDIRECT_URL = '/'
+    CRISPY_TEMPLATE_PACK = 'bootstrap4'
+    CRISPY_FAIL_SILENTLY = not DEBUG
+
+    CELERY_RESULT_BACKEND = 'django-db'
+    BROKER_CONNECTION_TIMEOUT = 10
+
+
+class Dev(Common):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config['POSTGRESDB']['postgresDatabaseName'],
+            'HOST': config['POSTGRESDB']['postgresServer'],
+            'PORT': config['POSTGRESDB']['postgresDatabasePort'],
+            'USER': config['POSTGRESDB']['postgresDatabaseUsername'],
+            'PASSWORD': config['POSTGRESDB']['postgresDatabaseUserpass'],
+        }
+    }
+    SECRET_KEY = config['CONFIG']['secretkey']
+
+    config = configparser.ConfigParser()
+    config.read('stajedemodanas.ini')
+
+    RABBIT_SERVER = config['RABBIT']['rabbitServer']
+    RABBIT_PORT = config['RABBIT']['rabbitPort']
+    RABBIT_USER = config['RABBIT']['rabbitUser']
+    RABBIT_PASS = config['RABBIT']['rabbitPass']
+    RABBIT_DB = config['RABBIT']['rabbitDB']
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
+
+
+class Prod(Common):
+    DEBUG = bool(int(os.getenv('DEBUG', False))) or True
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
+    DATABASES = dict()
+    DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    RABBIT_SERVER = os.getenv('RABBIT_SERVER')
+    RABBIT_PORT = os.getenv('RABBIT_PORT')
+    RABBIT_USER = os.getenv('RABBIT_USER')
+    RABBIT_PASS = os.getenv('RABBIT_PASS')
+    RABBIT_DB = os.getenv('RABBIT_DB')
+    # django_heroku.settings(locals())
