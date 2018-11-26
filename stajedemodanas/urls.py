@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 
 from stajedemodanas.views import HomePageView
@@ -30,3 +31,5 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view()),
     path('', HomePageView.as_view(), name='home-page')
 ]
+
+urlpatterns += staticfiles_urlpatterns()
