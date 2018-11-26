@@ -22,7 +22,7 @@ build:
 release:
   image: web
   command:
-    - python manage.py makemigrations && python manage.py collectstatic --no-input && python manage.py migrate
+    - ./www/manage.py collectstatic --no-input && ./www/python manage.py migrate
 run:
   web: gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
