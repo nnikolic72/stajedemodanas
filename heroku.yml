@@ -24,7 +24,7 @@ release:
   command:
     - export DJANGO_CONFIGURATION=Prod && chmod u+x manage.py && ./manage.py collectstatic --no-input --configuration=Prod && ./manage.py migrate --configuration=Prod
 run:
-  web: export DJANGO_CONFIGURATION=Prod && gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300 --configuration=Prod
+  web: export DJANGO_CONFIGURATION=Prod && gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
     command:
       - celery -A stajedemodanas -l info worker
