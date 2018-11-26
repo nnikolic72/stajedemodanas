@@ -298,7 +298,7 @@ class Dev(Common):
 
 class Prod(Common):
     DEBUG = bool(int(os.getenv('DEBUG', False))) or True
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else ['*']
     DATABASES = dict()
     DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URL'))
     SECRET_KEY = os.getenv('SECRET_KEY')
