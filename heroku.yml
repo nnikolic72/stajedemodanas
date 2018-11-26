@@ -27,9 +27,9 @@ run:
   web: export DJANGO_CONFIGURATION=Prod && gunicorn stajedemodanas.wsgi -b 0.0.0.0:$PORT --timeout 300
   worker:
     command:
-      - celery -A stajedemodanas -l info worker
+      - export DJANGO_CONFIGURATION=Prod && celery -A stajedemodanas -l info worker
     image: web
   flower:
     command:
-      - celery -A stajedemodanas flower
+      - export DJANGO_CONFIGURATION=Prod && celery -A stajedemodanas flower
     image: web
