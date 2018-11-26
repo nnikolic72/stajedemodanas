@@ -10,9 +10,12 @@ os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
 
 configurations.setup()
 
-celery = Celery('stajedemodanas',
-                broker=f'amqp://{settings.RABBIT_USER}:{settings.RABBIT_PASS}'
-                       f'@{settings.RABBIT_SERVER}/{settings.RABBIT_DB}')
+if not settings.BROKER_URL:
+    broker_url = f'amqp://{settings.RABBIT_USER}:{settings.RABBIT_PASS}@{settings.RABBIT_SERVER}/{settings.RABBIT_DB}'
+else:
+    broker_url = settings.BROKER_URL
+
+celery = Celery('stajedemodanas', broker=broker_url)
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
