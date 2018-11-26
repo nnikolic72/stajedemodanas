@@ -41,5 +41,5 @@ ENV PYTHONUNBUFFERED 1
 COPY . /www/
 ADD ./.profile.d /app/.profile.d
 RUN chmod u+x manage.py
-RUN export DJANGO_SETTINGS_MODULE=stajedemodanas.settings && ./manage.py createsuperuser --configuration=Prod
+# RUN export DJANGO_SETTINGS_MODULE=stajedemodanas.settings && ./manage.py createsuperuser --configuration=Prod
 # RUN ./manage.py migrate
