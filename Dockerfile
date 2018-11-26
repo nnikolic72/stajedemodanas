@@ -11,7 +11,7 @@
 # $PORT is set by Heroku
 #CMD python manage.py makemigrations && python manage.py collectstatic --no-input && python manage.py migrate
 
-FROM alpine
+FROM python:3.6.6-alpine3.8
 # init
 RUN apk update
 RUN apk upgrade
