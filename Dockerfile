@@ -24,8 +24,8 @@ WORKDIR /www
 COPY requirements.txt /www/
 # setup
 RUN apk --no-cache add \
-    python3 \
-    python3-dev \
+#    python3 \
+#    python3-dev \
     postgresql-client \
     postgresql-dev \
     build-base \
