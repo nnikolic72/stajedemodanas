@@ -40,5 +40,6 @@ RUN apk del -r python3-dev postgresql
 ENV PYTHONUNBUFFERED 1
 COPY . /www/
 ADD ./.profile.d /app/.profile.d
-# RUN ./manage.py collectstatic --no-input
+RUN chmod u+x manage.py
+RUN ./manage.py createsuperuser
 # RUN ./manage.py migrate
