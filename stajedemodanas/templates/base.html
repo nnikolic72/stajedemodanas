@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% bootstrap_javascript jquery='full' %}
-
     {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
 </head>
 <body>
     <div class="container">
@@ -39,5 +39,7 @@
         {% endblock %}
         {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
     </div>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block javascript %}{% endblock %}
 </body>
 </html>

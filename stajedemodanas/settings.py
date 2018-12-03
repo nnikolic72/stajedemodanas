@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import configparser
 from configurations import Configuration
 import os
-import django_heroku
 import dj_database_url
 
 config = configparser.ConfigParser()
@@ -93,7 +92,6 @@ class Common(Configuration):
         },
     ]
 
-
     # Internationalization
     # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -106,7 +104,6 @@ class Common(Configuration):
     USE_L10N = True
 
     USE_TZ = True
-
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -159,10 +156,4 @@ class Prod(Common):
     DATABASES = dict()
     DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URL'))
     SECRET_KEY = os.getenv('SECRET_KEY')
-    # RABBIT_SERVER = os.getenv('RABBIT_SERVER')
-    # RABBIT_PORT = os.getenv('RABBIT_PORT')
-    # RABBIT_USER = os.getenv('RABBIT_USER')
-    # RABBIT_PASS = os.getenv('RABBIT_PASS')
-    # RABBIT_DB = os.getenv('RABBIT_DB')
     BROKER_URL = os.getenv('BROKER_URL')
-    # django_heroku.settings(locals())

@@ -1,14 +1,18 @@
 from django.contrib.auth import get_user_model
 from django.db.models.fields import CharField
-from django.db.models import Model, ForeignKey, CASCADE, EmailField
+from django.db.models import Model, ForeignKey, CASCADE, EmailField, OneToOneField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext as _
+
+user_model = get_user_model()
 
 
 class Receiver(Model):
     """
     Model for people who collect deliveries
     """
-    user = ForeignKey(get_user_model(), on_delete=CASCADE, blank=True, null=True)
+    user = OneToOneField(user_model, on_delete=CASCADE)
     group = ForeignKey('ReceiverGroup', on_delete=CASCADE, blank=True, null=True)
     company = ForeignKey('ReceiverCompany', on_delete=CASCADE, blank=True, null=True)
     email = EmailField(_('Email Address'), blank=True, null=True)
@@ -63,3 +67,10 @@ class ReceiverCompany(Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=user_model)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Receiver.objects.create(user=instance)
+    instance.receiver.save()
