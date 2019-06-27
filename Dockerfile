@@ -31,7 +31,8 @@ RUN apk --no-cache add \
     build-base \
     gettext \
     curl \
-    openssh 
+    openssh \
+    libffi-dev
 #    build-essential \
 #    libssl-dev \
 #    libffi-dev
