@@ -32,9 +32,10 @@ RUN apk --no-cache add \
     gettext \
     curl \
     openssh \
+    build-essential \
     libssl-dev \
-    libffi-dev \
-    build-essential
+    libffi-dev 
+
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 # clean
