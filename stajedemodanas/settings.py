@@ -36,12 +36,14 @@ class Common(Configuration):
         'crispy_forms',
         'django_celery_results',
         'django_celery_beat',
+        'channels',
 
         # my apps
         'stajedemodanas',
         'deliverers',
         'receivers',
         'workplaces',
+        'orders',
     ]
 
     MIDDLEWARE = [
@@ -118,6 +120,8 @@ class Common(Configuration):
 
     CELERY_RESULT_BACKEND = 'django-db'
     BROKER_CONNECTION_TIMEOUT = 10
+
+    ASGI_APPLICATION = "stajedemodanas.routing.application"
 
 
 class Dev(Common):
