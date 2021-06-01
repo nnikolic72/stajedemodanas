@@ -63,7 +63,7 @@ sqlparse==0.2.4
 texttable==0.9.1
 Twisted==19.2.1
 txaio==18.8.1
-urllib3==1.24.1
+urllib3==1.26.5
 vine==1.1.4
 websocket-client==0.54.0
 whitenoise==4.1.1
